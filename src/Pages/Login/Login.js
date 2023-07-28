@@ -31,7 +31,7 @@ function Login() {
     const handleGoogleLogin = () => {
         googleLogin()
             .then((result) => {
-                navigate("/")
+                navigate(from, { replace: true })
             }).catch((error) => {
 
             });
@@ -46,7 +46,7 @@ function Login() {
 
     return (
         <>
-            <section className="pt-20 relative flex justify-center flex-wrap  lg:items-center">
+            <section className="relative flex justify-center flex-wrap  lg:items-center">
                 <div className="lg:ms-28 w-full px-4 py-8 sm:px-6 sm:py-16 lg:px-8 lg:py-16 lg:w-96">
                     <div className="mx-auto max-w-lg text-center">
                         <h2 className='text-center py-5 text-3xl text-blue-600 font-extrabold'>Sign in</h2>
@@ -89,7 +89,7 @@ function Login() {
                     <p className='text-center'><small>Don't have an account? <Link to="/signup"> <span className="text-cyan-500 text-xl">Signup</span></Link></small></p>
                 </div>
 
-                <div className="relative h-64 sm:h-96 lg:h-full lg:w-1/3">
+                <div className="h-64 sm:h-96 lg:h-full lg:w-[30%]">
                     <Lottie animationData={login} loop={true} />
                 </div>
             </section>

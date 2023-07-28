@@ -17,11 +17,11 @@ function Navbar() {
 
     return (
         <>
-            <nav className="bg-[#00B8A8] border-gray-200 dark:bg-gray-900 fixed w-full z-10 py-2">
+            <nav className="bg-[#00B8A8] border-gray-200 dark:bg-gray-900 fixed w-full z-20 py-2">
                 <div className="flex flex-wrap items-center justify-between max-w-[85%] mx-auto">
-                    <div className="flex items-center">
+                    <a href='/' className="flex items-center">
                         <h1 className="logo self-center whitespace-nowrap text-white">Protybeshi</h1>
-                    </div>
+                    </a>
                     <div className='md:order-2 flex items-center space-x-4'>
                         {user && <div className="relative" onClick={() => setToggle(!toggle)}>
                             {user.photoURL ? <img className='h-12 rounded-full cursor-pointer' src={user.photoURL} alt="" /> : <img className='h-12 rounded-full cursor-pointer' src="https://www.pngmart.com/files/22/User-Avatar-Profile-PNG-Isolated-Transparent.png" alt="" />
@@ -49,7 +49,7 @@ function Navbar() {
                         </div>
                         }
                         <Link to="/additem">
-                            <button className="bg-[#4E3CB8] text-white font-semibold px-6 py-3 rounded-full hover:bg-[#30a219]">Start Listing</button>
+                            <button className="bg-[#4E3CB8] text-white font-semibold px-6 py-3 rounded-full hover:bg-[#3f308f]">Start Listing</button>
                         </Link>
                     </div>
                 </div>

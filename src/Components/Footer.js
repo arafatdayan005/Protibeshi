@@ -13,7 +13,7 @@ function Footer() {
                                 <img src={logo} className="h-20" alt="" />
                                 <h1 className="logo -mb-3 -ms-6 align-middle whitespace-nowrap text-[#00B8A8]">rotybeshi</h1>
                             </div>
-                            <p>There are many variations of passages of Lorem Ipsum, but the majority have suffered alteration in some form.</p>
+                            <p className='my-4'>Help each other, share the love and make the society more engaging, more stronger.</p>
                             <img src={icon} className='mt-4' alt="" />
                         </div>
                         <div className='col-span-1 text-black dark:text-white '>

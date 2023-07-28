@@ -8,6 +8,8 @@ import AuthProvider from './Providers/AuthProviders';
 import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';
 import Signup from './Pages/Signup/Signup';
+import Additem from './Pages/Add Item/Additem';
+import PrivateRoute from './Routes/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login></Login>
+      },
+      {
+        path: '/additem',
+        element: <PrivateRoute><Additem></Additem></PrivateRoute>
       },
     ]
   },

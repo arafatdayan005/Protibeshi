@@ -7,7 +7,9 @@ function App() {
   return (
     <>
       <Navbar></Navbar>
-      <Outlet></Outlet>
+      <div className='pt-20 max-w-[85%] mx-auto'>
+        <Outlet></Outlet>
+      </div>
       <Footer></Footer>
     </>
   );
