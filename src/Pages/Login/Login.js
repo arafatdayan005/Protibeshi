@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Lottie from "lottie-react";
 import login from './../../Images/93385-login.json'
 import { AuthContext } from '../../Providers/AuthProviders'
+import { saveUser } from './../../API/Auth';
 
 function Login() {
     const [show, setShow] = useState(false)
@@ -31,6 +32,8 @@ function Login() {
     const handleGoogleLogin = () => {
         googleLogin()
             .then((result) => {
+                const user = result.user;
+                saveUser(user)
                 navigate(from, { replace: true })
             }).catch((error) => {
 

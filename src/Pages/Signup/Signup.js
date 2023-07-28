@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../Providers/AuthProviders'
+import { saveUser } from './../../API/Auth';
 
 function Signup() {
     const [show, setShow] = useState(false)
@@ -18,8 +19,10 @@ function Signup() {
 
         createUser(email, password)
             .then((userCredential) => {
+                const user = userCredential.user;
                 updateUser(name, photo)
                     .then(() => {
+                        saveUser(user)
                         navigate('/')
                     }).catch((error) => {
                     });
