@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import AuthProvider from './Providers/AuthProviders';
 import Home from './Pages/Home/Home';
 
 const router = createBrowserRouter([
@@ -21,9 +22,9 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <>
+  <AuthProvider>
     <RouterProvider router={router} />
-  </>
+  </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
