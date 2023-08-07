@@ -24,7 +24,7 @@ function Navbar() {
                     </a>
                     <div className='md:order-2 flex items-center space-x-4'>
                         {user && <div className="relative" onClick={() => setToggle(!toggle)}>
-                            {user.photoURL ? <img className='h-12 rounded-full cursor-pointer' src={user.photoURL} alt="" /> : <img className='h-12 rounded-full cursor-pointer' src="https://www.pngmart.com/files/22/User-Avatar-Profile-PNG-Isolated-Transparent.png" alt="" />
+                            {user.photoURL ? <img className='h-12 rounded-full cursor-pointer' src={user.photoURL} referrerPolicy="no-referrer" alt="" /> : <img className='h-12 rounded-full cursor-pointer' src="https://www.pngmart.com/files/22/User-Avatar-Profile-PNG-Isolated-Transparent.png" alt="" />
                             }
                             {toggle && (
                                 <div className="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-xl w-52 dark:bg-gray-700 dark:divide-gray-600">
