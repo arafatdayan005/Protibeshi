@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Navbar></Navbar>
-      <div className='pt-20 max-w-[85%] mx-auto'>
+      <div className='pt-20'>
         <Outlet></Outlet>
       </div>
       <Footer></Footer>

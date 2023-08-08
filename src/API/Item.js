@@ -9,3 +9,8 @@ export const postItem = (data) => {
         .then(res => res.json())
         .then(d => console.log(d))
 }
+
+export const getAllItems = async () => {
+    const res = await fetch('http://localhost:5000/items')
+    return await res.json()
+}
