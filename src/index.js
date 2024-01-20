@@ -10,6 +10,7 @@ import Login from './Pages/Login/Login';
 import Signup from './Pages/Signup/Signup';
 import Additem from './Pages/Add Item/Additem';
 import PrivateRoute from './Routes/PrivateRoute';
+import ItemDetails from './Pages/Item Details/ItemDetails';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
       {
         path: '/additem',
         element: <PrivateRoute><Additem></Additem></PrivateRoute>
+      },
+      {
+        path: '/details/:id',
+        element: <PrivateRoute><ItemDetails></ItemDetails></PrivateRoute>,
+        loader: ({ params }) => fetch(`http://localhost:5000/item/${params.id}`)
       },
     ]
   },
