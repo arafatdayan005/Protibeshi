@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { rentItem } from "../../API/Item";
+import Swal from "sweetalert2";
 
 function ItemDetails() {
   const [duration, setDuration] = useState(0);
@@ -9,6 +10,11 @@ function ItemDetails() {
   const navigate = useNavigate();
 
   const data = useLoaderData();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const {
     _id,
     caution,
@@ -20,7 +26,7 @@ function ItemDetails() {
     map,
     userName,
     userImage,
-    building,
+    road,
     area,
     city,
   } = data;
@@ -36,11 +42,45 @@ function ItemDetails() {
       borrowEmail: user.email,
     };
 
-    const res = await rentItem(_id, borrow);
-    console.log(res)
-    if(res){
-      navigate("/")
-    }
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton:
+          "btn bg-emerald-500 text-white rounded-lg py-4 px-5 text-lg font-semibold",
+        cancelButton:
+          "btn bg-red-600 text-white rounded-lg py-4 px-5 mr-8 text-lg font-semibold",
+      },
+      buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, rent it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await rentItem(_id, borrow);
+          if (res) {
+            swalWithBootstrapButtons.fire({
+              title: "Successful!",
+              text: "You rent this item successfully",
+              icon: "success",
+            });
+            navigate("/");
+          }
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: "Cancelled",
+            text: "Item rent was not successful",
+            icon: "error",
+          });
+        }
+      });
   };
 
   return (
@@ -74,11 +114,11 @@ function ItemDetails() {
           <div className="flex justify-center mt-8 gap-x-40 mr-4">
             <div>
               <p className="text-xl font-bold underline text-center">Area:</p>
-              <p className="text-xl font-semibold text-center">{building}</p>
+              <p className="text-xl font-semibold text-center">{area}</p>
             </div>
             <div>
               <p className="text-xl font-bold underline text-center">Road:</p>
-              <p className="text-xl font-semibold text-center">{area}</p>
+              <p className="text-xl font-semibold text-center">{road}</p>
             </div>
             <div>
               <p className="text-xl font-bold underline text-center">City:</p>
