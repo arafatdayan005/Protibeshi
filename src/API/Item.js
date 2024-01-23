@@ -33,3 +33,14 @@ export const rentItem = async (id, rentDetails) => {
   });
   return await res.json();
 };
+
+export const itemStatus = async (id, status) => {
+  const res = await fetch(`http://localhost:5000/details/${id}`, {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(status),
+  });
+  return await res.json();
+};

@@ -11,6 +11,9 @@ import Signup from './Pages/Signup/Signup';
 import Additem from './Pages/Add Item/Additem';
 import PrivateRoute from './Routes/PrivateRoute';
 import ItemDetails from './Pages/Item Details/ItemDetails';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import AllUsers from './Pages/Dashboard/Admin/AllUsers';
+import AllPosts from './Pages/Dashboard/Admin/AllPosts';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +42,20 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <Signup></Signup>
+  },
+  {
+    path: '/dashboard',
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: '/dashboard/admin/allusers',
+        element: <AllUsers></AllUsers>
+      },
+      {
+        path: '/dashboard/admin/allposts',
+        element: <AllPosts></AllPosts>
+      },
+    ]
   },
 ])
 
