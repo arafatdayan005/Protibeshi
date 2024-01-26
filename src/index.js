@@ -14,6 +14,9 @@ import ItemDetails from './Pages/Item Details/ItemDetails';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import AllUsers from './Pages/Dashboard/Admin/AllUsers';
 import AllPosts from './Pages/Dashboard/Admin/AllPosts';
+import MyStuff from './Pages/Dashboard/User/MyStuff';
+import MyBorrowings from './Pages/Dashboard/User/MyBorrowings';
+import MyLendings from './Pages/Dashboard/User/MyLendings';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +57,18 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/admin/allposts',
         element: <AllPosts></AllPosts>
+      },      
+      {
+        path: '/dashboard/user/mystuff',
+        element: <MyStuff></MyStuff>
+      },
+      {
+        path: '/dashboard/user/myborrowings',
+        element: <MyBorrowings></MyBorrowings>
+      },
+      {
+        path: '/dashboard/user/mylendings',
+        element: <MyLendings></MyLendings>
       },
     ]
   },
