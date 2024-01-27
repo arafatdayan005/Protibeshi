@@ -17,6 +17,10 @@ import AllPosts from './Pages/Dashboard/Admin/AllPosts';
 import MyStuff from './Pages/Dashboard/User/MyStuff';
 import MyBorrowings from './Pages/Dashboard/User/MyBorrowings';
 import MyLendings from './Pages/Dashboard/User/MyLendings';
+import Profile from './Pages/Profile/Profile';
+import MyProfile from './Pages/Profile/MyProfile';
+import EditProfile from './Pages/Profile/EditProfile';
+import MyWallet from './Pages/Profile/MyWallet';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +43,28 @@ const router = createBrowserRouter([
         path: '/details/:id',
         element: <PrivateRoute><ItemDetails></ItemDetails></PrivateRoute>,
         loader: ({ params }) => fetch(`http://localhost:5000/item/${params.id}`)
+      },      
+      {
+        path: '/profile',
+        element: <PrivateRoute><Profile></Profile></PrivateRoute>,
+        children: [
+          {
+            path: '/profile',
+            element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
+          },
+          {
+            path: '/profile/myprofile',
+            element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
+          },
+          {
+            path: '/profile/edit',
+            element: <PrivateRoute><EditProfile></EditProfile></PrivateRoute>
+          },
+          {
+            path: '/profile/wallet',
+            element: <PrivateRoute><MyWallet></MyWallet></PrivateRoute>
+          },
+        ]
       },
     ]
   },
