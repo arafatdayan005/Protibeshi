@@ -21,6 +21,7 @@ import Profile from './Pages/Profile/Profile';
 import MyProfile from './Pages/Profile/MyProfile';
 import EditProfile from './Pages/Profile/EditProfile';
 import MyWallet from './Pages/Profile/MyWallet';
+import Invoice from './Pages/Profile/Invoice';
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
           {
             path: '/profile/wallet',
             element: <PrivateRoute><MyWallet></MyWallet></PrivateRoute>
+          },
+          {
+            path: '/profile/invoice',
+            element: <PrivateRoute><Invoice></Invoice></PrivateRoute>
           },
         ]
       },
