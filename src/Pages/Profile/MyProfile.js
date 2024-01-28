@@ -10,7 +10,6 @@ function MyProfile() {
       .then((res) => res.json())
       .then((data) => setUserData(data));
   }, [user]);
-  console.log(userData?.iframe);
   return (
     <>
       <p className="text-center font-bold text-5xl tracking-tight font-serif dark:text-white">
@@ -47,6 +46,14 @@ function MyProfile() {
       <p className="mt-4 text-2xl font-medium">
         <span className="text-xl italic text-gray-500">City: </span>
         {userData?.city || "Not Given"}
+      </p>
+      <p className="mt-4 text-2xl font-medium">
+        <span className="text-xl italic text-gray-500">Latitude: </span>
+        {userData?.latitude || "Not Given"}
+      </p>
+      <p className="mt-4 text-2xl font-medium">
+        <span className="text-xl italic text-gray-500">Longitude: </span>
+        {userData?.longitude || "Not Given"}
       </p>
       {userData?.iframe && (
         <div className="absolute bottom-10 right-10 h-80 w-80">

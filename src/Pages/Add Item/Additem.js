@@ -51,11 +51,17 @@ function Additem() {
       const area = form.area.value;
       const city = form.city.value;
       let map = form.map.value;
+      let location = form.location.value;
 
       const caution = price * age - price * condition;
 
       const src = map?.split(" ");
       const url = src[1]?.split('"');
+
+      const coordinatesArray = location.split(", ");
+
+      const latitude = coordinatesArray[0];
+      const longitude = coordinatesArray[1];
 
       const data = {
         name,
@@ -75,6 +81,8 @@ function Additem() {
         userName: user.displayName,
         userImage: user.photoURL,
         userEmail: user.email,
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude),
         status: "Admin aproval",
       };
 
@@ -86,7 +94,7 @@ function Additem() {
         title: "Your item listed successfully",
         showConfirmButton: false,
         timer: 1500,
-      }).then(() => navigate("/"));
+      }).then(() => navigate("/dashboard/user/mystuff"));
     }
   };
 
@@ -132,11 +140,14 @@ function Additem() {
                 <div className="text-base font-bold mt-4">
                   <label>Add Photos</label>
                 </div>
-
-                {/* <div name="photos" class="w-44 bg-[#444AC4] text-[#FFFFFF] border-none rounded text-center ml-4 h-9">
-                                <UploadWidget onImageUpload={handleImageUpload}>
-                                </UploadWidget>
-                            </div> */}
+                <div
+                  name="photos"
+                  class="w-44 bg-[#444AC4] text-[#FFFFFF] border-none rounded text-center ml-4 h-9"
+                >
+                  <UploadWidget
+                    onImageUpload={handleImageUpload}
+                  ></UploadWidget>
+                </div>
 
                 <div>
                   <input
@@ -205,7 +216,7 @@ function Additem() {
                     placeholder="Description"
                   ></textarea>
                 </div>
-                <div className="text-2xl font-bold mt-4">
+                <div className="text-2xl font-bold mt-2">
                   <label>Category</label>
                 </div>
                 <div className="text-sm">
@@ -213,7 +224,7 @@ function Additem() {
                 </div>
                 <div>
                   <select
-                    className="w-96 bg-[#F4F5F7] border-none rounded mt-4"
+                    className="w-96 bg-[#F4F5F7] border-none rounded mt-2"
                     name="category"
                   >
                     <option
@@ -233,7 +244,7 @@ function Additem() {
                   </select>
                 </div>
 
-                <div className="text-2xl font-bold my-4">
+                <div className="text-2xl font-bold mt-2">
                   <label>Select Condition</label>
                 </div>
                 <div>
@@ -251,7 +262,7 @@ function Additem() {
                     <option value=".30">Poor</option>
                   </select>
                 </div>
-                <div className="text-2xl my-4 font-bold">
+                <div className="text-2xl mt-2 font-bold">
                   <label>Item Age</label>
                 </div>
                 <div>
@@ -268,22 +279,22 @@ function Additem() {
                     <option value="0.5">Less than 10 year</option>
                   </select>
                 </div>
-                <div className="text-2xl font-bold mt-4">
+                <div className="text-2xl font-bold mt-2">
                   <label>Pricing</label>
                 </div>
-                <div className="text-base font-bold mb-2">
+                <div className="text-base font-bold">
                   <label>Choose duration and rate</label>
                 </div>
                 <div>
                   <input
-                    className="w-96 bg-[#F4F5F7] border-none rounded mt-4"
+                    className="w-96 bg-[#F4F5F7] border-none rounded mt-2"
                     type="text"
                     name="price"
                     placeholder="Real Price"
                     required
                   ></input>
                 </div>
-                <div className="mt-4">
+                <div className="mt-2">
                   <select
                     className="w-96 bg-[#F4F5F7] border-none rounded"
                     name="duration"
@@ -295,6 +306,20 @@ function Additem() {
                     <option value="2 week">2 week</option>
                     <option value="1 month">1 month</option>
                   </select>
+                </div>
+                <div className="text-base font-bold mt-4">
+                  <label>Add Photos</label>
+                </div>
+                <div
+                  name="photos"
+                  className="w-1/3 bg-[#444AC4] text-white mx-auto border-none rounded text-center px-4 py-3"
+                >
+                  <UploadWidget
+                    onImageUpload={handleImageUpload}
+                  ></UploadWidget>
+                </div>
+                <div className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm text-[#7C706B]">
+                  <label>*Required-The maximum photo size is 15MB</label>
                 </div>
               </div>
               <div>
@@ -331,20 +356,23 @@ function Additem() {
                   ></input>
                 </div>
                 <div className="text-base font-bold mt-4">
-                  <label>Add Photos</label>
+                  <label>Geo-location Coordinate</label>
                 </div>
-                <div
-                  name="photos"
-                  className="w-1/3 bg-[#444AC4] text-white mx-auto border-none rounded text-center px-4 py-3"
-                >
-                  <UploadWidget
-                    onImageUpload={handleImageUpload}
-                  ></UploadWidget>
+                <div>
+                  <input
+                    className="w-96 bg-[#F4F5F7] border-none rounded mt-4"
+                    type="text"
+                    name="location"
+                    placeholder="e.g: 23.69510781937833, 90.45102680192862"
+                    defaultValue={`${
+                      JSON.parse(localStorage.getItem("Location")).latitude
+                    }, ${
+                      JSON.parse(localStorage.getItem("Location")).longitude
+                    }`}
+                    required
+                  ></input>
                 </div>
-                <div className="after:content-['*'] after:ml-0.5 after:text-red-500 text-sm text-[#7C706B]">
-                  <label>*Required-The maximum photo size is 15MB</label>
-                </div>
-                <div className="text-2xl font-bold mt-5">
+                <div className="text-2xl font-bold mt-6">
                   <label>Owner's Info</label>
                 </div>
                 <div className="text-base font-bold mt-4 mb-8">
@@ -357,10 +385,11 @@ function Additem() {
                 />
                 <div>
                   <input
-                    className="w-96 bg-[#F4F5F7] border-none rounded mt-4"
+                    className="w-96 bg-[#F4F5F7] border-none rounded mt-8"
                     type="text"
                     name="username"
                     placeholder={user.displayName}
+                    defaultValue=""
                     disabled
                   ></input>
                 </div>

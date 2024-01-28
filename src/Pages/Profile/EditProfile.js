@@ -25,9 +25,15 @@ function EditProfile() {
     const area = form.area.value;
     const city = form.city.value;
     const map = form.iframe.value;
+    const location = form.location.value;
 
     const src = map?.split(" ");
     const url = src[1]?.split('"');
+
+    const coordinatesArray = location.split(", ");
+
+    const latitude = coordinatesArray[0];
+    const longitude = coordinatesArray[1];
 
     const data = {
       name,
@@ -37,8 +43,20 @@ function EditProfile() {
       road,
       area,
       city,
+      latitude: parseFloat(latitude),
+      longitude: parseFloat(longitude),
       iframe: url?.[1],
     };
+
+    if (!JSON.parse(localStorage.getItem("Location"))?.latitude) {
+      localStorage.setItem(
+        "Location",
+        JSON.stringify({
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
+        })
+      );
+    }
 
     postProfile(user?.email, data);
     Swal.fire({
@@ -80,7 +98,7 @@ function EditProfile() {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#444AC4] focus:border-[#444AC4] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#444AC4] dark:focus:border-[#444AC4]"
             />
           </div>
-          <div className="col-span-2">
+          <div>
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Email
             </label>
@@ -91,6 +109,23 @@ function EditProfile() {
               defaultValue={userData?.email}
               disabled
             />
+          </div>
+          <div>
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Geo-location Coordinate
+            </label>
+            <input
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#444AC4] focus:border-[#444AC4] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-[#444AC4] dark:focus:border-[#444AC4]"
+              type="text"
+              name="location"
+              placeholder="e.g: 23.69510781937833, 90.45102680192862"
+              defaultValue={
+                JSON.parse(localStorage.getItem("Location"))?.latitude &&
+                `${JSON.parse(localStorage.getItem("Location"))?.latitude}, ${
+                  JSON.parse(localStorage.getItem("Location"))?.longitude
+                }`
+              }
+            ></input>
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
