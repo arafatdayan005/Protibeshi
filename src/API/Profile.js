@@ -14,6 +14,7 @@ export const lenderProfile = (userEmail, caution) => {
     .then((user) => {
       const updatecred = {
         credit: user?.credit + caution * 0.2,
+        lendings: user?.lendings + 1,
       };
       postProfile(userEmail, updatecred);
     });
@@ -28,14 +29,15 @@ export const borrowerProfile = (id, caution, task) => {
         .then((user) => {
           if (task === "deduct") {
             const updateCred = {
-              credit: user.credit - caution,
+              credit: user?.credit - caution,
+              borrowings: user?.borrowings + 1,
             };
             postProfile(data.borrowEmail, updateCred);
           } else if (task === "return") {
             const updateCred = {
               credit: user?.credit + caution * 0.75,
             };
-            postProfile(data.borrowEmail, updateCred);
+            postProfile(data?.borrowEmail, updateCred);
           }
         });
     });

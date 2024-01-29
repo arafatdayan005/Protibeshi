@@ -53,17 +53,32 @@ function AllUsers() {
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 border">
             <thead className="text-xs text-center text-gray-700 uppercase bg-green-100 dark:bg-gray-700 dark:text-gray-400 rounded-full">
               <tr>
-                <th scope="col" className="py-3 text-lg">
+                <th scope="col" className="py-3 text-md">
                   No.
                 </th>
-                <th scope="col" className="py-3 text-lg ps-3 text-left">
+                <th scope="col" className="py-3 text-md ps-3 text-left">
                   Photo
                 </th>
-                <th scope="col" className="py-3 text-lg text-left">
+                <th scope="col" className="py-3 text-md text-left">
                   Username
                 </th>
-                <th scope="col" className="py-3 text-lg">
+                <th scope="col" className="py-3 text-md">
                   Email
+                </th>
+                <th scope="col" className="py-3 text-md">
+                  Latitude
+                </th>
+                <th scope="col" className="py-3 text-md">
+                  Longitude
+                </th>
+                <th scope="col" className="py-3 text-md px-3">
+                  Total <br /> Borrowings
+                </th>
+                <th scope="col" className="py-3 text-md pr-3">
+                  Total <br /> Lendings
+                </th>
+                <th scope="col" className="py-3 text-md px-3">
+                  Credit
                 </th>
               </tr>
             </thead>
@@ -73,7 +88,7 @@ function AllUsers() {
                   key={d._id}
                   className="bg-white text-center border-b dark:bg-gray-700 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
-                  <td className="p-4 text-lg">{i + 1}</td>
+                  <td className="p-4 text-md">{i + 1}</td>
                   <td className="py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     <img
                       className="w-16 rounded-full ml-2"
@@ -81,10 +96,15 @@ function AllUsers() {
                       alt=""
                     />
                   </td>
-                  <td className="py-4 font-medium text-gray-900 text-left whitespace-nowrap dark:text-white text-lg">
+                  <td className="py-4 font-medium text-gray-900 text-left whitespace-nowrap dark:text-white text-md">
                     {d.name}
                   </td>
-                  <td className="py-4 text-lg">{d.email}</td>
+                  <td className="py-4 text-md">{d.email}</td>
+                  <td className="py-4 text-md">{d?.latitude}</td>
+                  <td className="py-4 text-md">{d?.longitude}</td>
+                  <td className="py-4 text-md">{d?.borrowings}</td>
+                  <td className="py-4 text-md">{d?.lendings}</td>
+                  <td className="py-4 text-md">{d?.credit}</td>
                 </tr>
               ))}
             </tbody>

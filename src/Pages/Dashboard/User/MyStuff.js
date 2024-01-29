@@ -171,7 +171,7 @@ function MyStuff() {
                         type="number"
                         id="pin"
                         placeholder="Borrwer PIN"
-                        className="bg-[#ffffff] w-[140px] text-center font-semibold ps-5 py-2 rounded-full"
+                        className="bg-[#ffffff] w-[140px] text-center font-semibold py-2 rounded-full"
                         onChange={(e) => setUserPin(parseInt(e.target.value))}
                       ></input>
                       <br />

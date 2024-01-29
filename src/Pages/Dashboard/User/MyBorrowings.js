@@ -14,7 +14,7 @@ function MyBorrowings() {
     });
   }, [user, reload]);
 
-  const handlePinSubmit = (id) => {
+  const handlePinSubmit = (id, email) => {
     const setStatus = {
       status: "Picked Up",
     };
@@ -109,13 +109,15 @@ function MyBorrowings() {
                         type="number"
                         id="pin"
                         placeholder="Lender PIN"
-                        className="bg-[#ffffff] w-[140px] text-center font-semibold ps-6 py-2 rounded-full"
+                        className="bg-[#ffffff] w-[140px] text-center font-semibold py-2 rounded-full"
                         onChange={(e) => setUserPin(parseInt(e.target.value))}
                       ></input>
                       <br />
                       <button
                         disabled={userPin !== item.pin}
-                        onClick={() => handlePinSubmit(item._id)}
+                        onClick={() =>
+                          handlePinSubmit(item._id, item.userEmail)
+                        }
                         className="bg-[#4E3CB8] text-white mt-2 mx-8 font-semibold px-4 py-2 rounded-full hover:bg-[#3f308f]"
                       >
                         Submit

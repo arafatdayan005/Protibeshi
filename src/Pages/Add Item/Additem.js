@@ -142,7 +142,7 @@ function Additem() {
                 </div>
                 <div
                   name="photos"
-                  class="w-44 bg-[#444AC4] text-[#FFFFFF] border-none rounded text-center ml-4 h-9"
+                  className="w-44 bg-[#444AC4] text-[#FFFFFF] border-none rounded text-center ml-4 h-9"
                 >
                   <UploadWidget
                     onImageUpload={handleImageUpload}
@@ -359,18 +359,28 @@ function Additem() {
                   <label>Geo-location Coordinate</label>
                 </div>
                 <div>
-                  <input
-                    className="w-96 bg-[#F4F5F7] border-none rounded mt-4"
-                    type="text"
-                    name="location"
-                    placeholder="e.g: 23.69510781937833, 90.45102680192862"
-                    defaultValue={`${
-                      JSON.parse(localStorage.getItem("Location")).latitude
-                    }, ${
-                      JSON.parse(localStorage.getItem("Location")).longitude
-                    }`}
-                    required
-                  ></input>
+                  {JSON.parse(localStorage.getItem("Location"))?.latitude ? (
+                    <input
+                      className="w-96 bg-[#F4F5F7] border-none rounded mt-4"
+                      type="text"
+                      name="location"
+                      placeholder="e.g: 23.69510781937833, 90.45102680192862"
+                      defaultValue={`${
+                        JSON.parse(localStorage.getItem("Location")).latitude
+                      }, ${
+                        JSON.parse(localStorage.getItem("Location")).longitude
+                      }`}
+                      required
+                    ></input>
+                  ) : (
+                    <input
+                      className="w-96 bg-[#F4F5F7] border-none rounded mt-4"
+                      type="text"
+                      name="location"
+                      placeholder="e.g: 23.69510781937833, 90.45102680192862"
+                      required
+                    ></input>
+                  )}
                 </div>
                 <div className="text-2xl font-bold mt-6">
                   <label>Owner's Info</label>

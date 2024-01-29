@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getAllItems, itemStatus } from "../../../API/Item";
 import { Link } from "react-router-dom";
+import tick from "./../../../Images/Flat_tick_icon.svg.png";
+import cross from "./../../../Images/Flat_cross_icon.svg.png";
 
 function AllPosts() {
   const [data, setData] = useState([]);
@@ -139,11 +141,7 @@ function AllPosts() {
                           onClick={() => handleAccept(d._id)}
                           disabled={d.status === "Available"}
                         >
-                          <img
-                            className="w-8"
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flat_tick_icon.svg/768px-Flat_tick_icon.svg.png"
-                            alt=""
-                          />
+                          <img className="w-8" src={tick} alt="" />
                         </button>
                       </td>
                       <td className="py-4 w-20">
@@ -155,11 +153,7 @@ function AllPosts() {
                           onClick={() => handleReject(d._id)}
                           disabled={d.status === "Rejected"}
                         >
-                          <img
-                            className="w-8"
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Flat_cross_icon.svg/1024px-Flat_cross_icon.svg.png"
-                            alt=""
-                          />
+                          <img className="w-8" src={cross} alt="" />
                         </button>
                       </td>
                     </tr>

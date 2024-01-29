@@ -6,14 +6,22 @@ import Swal from "sweetalert2";
 
 function ItemDetails() {
   const [duration, setDuration] = useState(0);
+  const [userData, setUserData] = useState([]);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-
   const data = useLoaderData();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [data]);
+
+  useEffect(() => {
+    if (user) {
+      fetch(`http://localhost:5000/users/${user?.email}`)
+        .then((res) => res.json())
+        .then((data) => setUserData(data));
+    }
+  }, [user]);
 
   const {
     _id,
@@ -32,55 +40,89 @@ function ItemDetails() {
   } = data;
 
   const handleRent = async () => {
-    const borrow = {
-      _id,
-      name,
-      description,
-      condition,
-      photos,
-      caution,
-      borrowEmail: user.email,
-    };
-
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton:
-          "btn bg-emerald-500 text-white rounded-lg py-4 px-5 text-lg font-semibold",
-        cancelButton:
-          "btn bg-red-600 text-white rounded-lg py-4 px-5 mr-8 text-lg font-semibold",
-      },
-      buttonsStyling: false,
-    });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
+    if (!user) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Please Login to rent this item",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } else if (data?.userEmail === user?.email) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Your cannot rent your own item",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    } else if (caution > userData?.credit) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Insufficient Credit.",
+        text: "Please Recharge",
         showCancelButton: true,
-        confirmButtonText: "Yes, rent it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then(async (result) => {
+        confirmButtonText: "Recharge",
+      }).then((result) => {
         if (result.isConfirmed) {
-          const res = await rentItem(_id, borrow);
-          if (res) {
-            swalWithBootstrapButtons.fire({
-              title: "Successful!",
-              text: "You rent this item successfully",
-              icon: "success",
-            });
-            navigate("/");
-          }
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire({
-            title: "Cancelled",
-            text: "Item rent was not successful",
-            icon: "error",
-          });
+          navigate("/profile/wallet");
         }
       });
+    } else {
+      const borrow = {
+        _id,
+        name,
+        description,
+        condition,
+        photos,
+        caution,
+        borrowEmail: user.email,
+      };
+
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton:
+            "btn bg-emerald-500 text-white rounded-lg py-4 px-5 text-lg font-semibold",
+          cancelButton:
+            "btn bg-red-600 text-white rounded-lg py-4 px-5 mr-8 text-lg font-semibold",
+        },
+        buttonsStyling: false,
+      });
+
+      swalWithBootstrapButtons
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, rent it!",
+          cancelButtonText: "No, cancel!",
+          reverseButtons: true,
+        })
+        .then(async (result) => {
+          if (result.isConfirmed) {
+            const res = await rentItem(_id, borrow);
+            if (res) {
+              swalWithBootstrapButtons.fire({
+                title: "Successful!",
+                text: "You rent this item successfully",
+                icon: "success",
+              });
+              navigate("/dashboard/user/myborrowings");
+            }
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire({
+              title: "Cancelled",
+              text: "Item rent was not successful",
+              icon: "error",
+            });
+          }
+        });
+    }
   };
 
   return (

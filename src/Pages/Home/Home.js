@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import magnify from "./../../Images/search.svg";
 import img from "./../../Images/homepage.svg";
-import ItemsCards from "./ItemCads";
+import ItemsCards from "./ItemCards";
 import { getAllItems } from "../../API/Item";
 import * as geolib from "geolib";
 import Swal from "sweetalert2";
@@ -18,6 +18,7 @@ function Home() {
   const [location, setLocation] = useState("");
   const wrapperRef = useRef(null);
   const [userData, setUserData] = useState([]);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     if (user && user.email !== "admin@protybeshi.com") {
@@ -27,7 +28,7 @@ function Home() {
           setUserData(data);
 
           if (!data.latitude && !data.longitude) {
-            setTimeout(() => setIsShowing(true), 100);
+            setTimeout(() => setIsShowing(true), 10000);
           }
         });
     }
@@ -153,6 +154,9 @@ function Home() {
           longitude: parseFloat(longitude),
         })
       );
+      setTimeout(() => {
+        setReload(!reload);
+      }, 500);
       Swal.fire({
         position: "center",
         icon: "success",

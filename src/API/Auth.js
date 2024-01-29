@@ -18,6 +18,8 @@ export const saveUser = (user) => {
       if (data.upsertedCount === 1) {
         const data = {
           credit: 0,
+          borrowings: 0,
+          lendings: 0,
         };
         fetch(`http://localhost:5000/users/${user?.email}`, {
           method: "PUT",
